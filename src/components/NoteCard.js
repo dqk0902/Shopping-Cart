@@ -16,10 +16,6 @@ const useStyles = makeStyles({
 
     borderRadius: 15,
   },
-  avatar: {
-    fontSize: "20px",
-    margin: "auto",
-  },
 });
 export default function NoteCard({ item, handleClick }, props) {
   const classes = useStyles(props);

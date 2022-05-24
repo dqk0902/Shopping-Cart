@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Container, Grid } from "@mui/material";
 
 import NoteCard from "../components/NoteCard";
-export default function Notes({ handleClick }) {
+export default function Carts({ carts, setCarts }) {
   const [notes, setNotes] = useState([]);
 
   useEffect(() => {
@@ -12,7 +12,23 @@ export default function Notes({ handleClick }) {
       .then((res) => res.json())
       .then((data) => setNotes(data));
   }, []);
+  const handleClick = (item) => {
+    item = { ...item, amount: 1 };
 
+    setCarts((carts) => {
+      let isItemInCart = carts.find((cartsItem) => item.id === cartsItem.id);
+
+      if (isItemInCart) {
+        return carts.map((cartsItem) =>
+          item.id === cartsItem.id
+            ? { ...item, amount: carts[carts.indexOf(cartsItem)].amount + 1 }
+            : cartsItem
+        );
+      }
+
+      return [...carts, item];
+    });
+  };
   return (
     <Container>
       <Grid container>
